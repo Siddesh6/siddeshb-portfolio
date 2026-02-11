@@ -1,0 +1,16 @@
+rules_version = '2';
+
+// See: https://firebase.google.com/docs/storage/security
+service firebase.storage {
+  match /b/{bucket}/o {
+    // This rule allows anyone with access to your Firebase project to read,
+    // write, and delete all data in your Cloud Storage bucket.
+    // Make sure you update this rule to secure your Cloud Storage bucket before
+    // going to production.
+    // For more information, see the Cloud Storage security rules documentation:
+    // https://firebase.google.com/docs/storage/security/start
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
