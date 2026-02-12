@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/header';
 import ProjectsSection from '@/components/sections/projects';
 import SkillsSection from '@/components/sections/skills';
@@ -17,7 +16,17 @@ import { Eye } from 'lucide-react';
 import InvolvementSection from '@/components/sections/involvement';
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent wrong content during hydration
+  if (!mounted) {
+    return null; 
+  }
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
@@ -30,7 +39,7 @@ export default function Home() {
         <EducationSection />
         <InvolvementSection />
         <PublicationsSection />
-        
+
         {!showGallery ? (
           <section id="gallery" className="w-full py-20 bg-secondary">
             <div className="container text-center">
@@ -56,5 +65,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
